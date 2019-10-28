@@ -2,6 +2,7 @@ package id.ac.polinema.colorchangernormal;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -14,9 +15,12 @@ public class MainActivity extends AppCompatActivity {
 
 	private ConstraintLayout rootView;
 	private Button btnChangeColor;
+	// Tambahkan ViewModel
+	ColorViewModel colorViewModel;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		colorViewModel = ViewModelProviders.of(this).get(ColorViewModel.class);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		rootView = findViewById(R.id.layout_main);
@@ -30,7 +34,8 @@ public class MainActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View view) {
 				int color = generateRandomColor();
-				rootView.setBackgroundColor(color);
+				rootView.setBackgroundColor(colorViewModel.getColor());
+				colorViewModel.setColor(color);
 			}
 		});
 	}
